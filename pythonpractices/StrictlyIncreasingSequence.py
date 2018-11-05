@@ -1,5 +1,4 @@
 import numpy as np
-
 def almostIncreasingSequence(sequence):
     list1 = sequence
     lon = len(list1)
@@ -12,20 +11,20 @@ def almostIncreasingSequence(sequence):
             else:
                 print("the element of sequence should between -100000 and 100000")
         list2 = sorted(list1)
-        for i in list1:
+        for i in list1:         #查询列表中，重复数据的情况
             b = list1.count(i)
-            if b > 2:
+            if b > 2:           #如果重复次数超过2，则返回false
                 return False
-            if b == 2:
+            if b == 2:          #如果重复次数等于2，则判断两次出现的位置数据情况
                 a = []
                 for j in range(0,lon):
                     if list1[j]==i:
                         a.append(j)
                     a = sorted(a)
-                if i < list1[a[1]-1]:
+                if i < list1[a[1]-1]:         #如果index比较大的重复数据，比它前边的数据小，则删除该数据后，判断是否升序
                     del list1[a[1]]
                 else:
-                    del list1[a[0]]
+                    del list1[a[0]]         #否则删除index比较小的重复数据，再判断是否升序
                 list2 = sorted(list1)
                 for j in list2:
                     if list2.count(j)>=2:
@@ -37,7 +36,7 @@ def almostIncreasingSequence(sequence):
         if list1 == list2:
             return True
         else:
-            a = np.max(list1)
+            a = np.max(list1)       #没有重复数据的情况下，判断列表最大值与列表最后一个值是否相等，如果不相等，则删除最后一项后，判断列表是否正序排列
             if a != list1[lon-1]:
                 list1.remove(a)
                 list2=sorted(list1)
@@ -45,10 +44,9 @@ def almostIncreasingSequence(sequence):
                     return True
                 else:
                     return False
-            else:
+            else:                   #如果最大值与列表最后一个元素相等，则找出列表中的最小值，删除它后，判断列表是否为升序，
                 list1.remove(a)
                 b = np.min(list1)
-                print(b)
                 list1.remove(b)
                 list2 = sorted(list1)
                 if list2 == list1:
